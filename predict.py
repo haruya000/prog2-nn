@@ -1,3 +1,5 @@
+#
+#学習していないもの
 import matplotlib.pyplot as plt
 import torch
 from torchvision import datasets
@@ -23,7 +25,7 @@ ds_train=datasets.FashionMNIST(
 #imageは0-1に正規化されたTensor(1,28,28)
 image,target=ds_train[0]
 #(1,28,28)=>(1,1,28,28)
-image=image.unsqueeze(dim=0)
+image=image.unsqueeze(dim=2)
 
 #モデルに入力画像を入れる
 model.eval() #テストをしますの宣言（なくても可）
