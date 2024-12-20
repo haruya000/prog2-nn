@@ -75,9 +75,11 @@ acc_test_history=[]
 for k in range(n_epoch):
     print(f'epoch{k+1}/{n_epoch}',end=': ',flush=True)
 
+    time_start=time.time()
     loss_train=models.train(model,dataloader_train,loss_fn,optimizer)
+    time_end=time.time()
     loss_train_history.append(loss_train)
-    print(f'train loss:{loss_train}')
+    print(f'train loss:{loss_train:.3f}・({time_end-time_start}s)')
     loss_test=models.test(model,dataloader_test,loss_fn)    
     loss_test_history.append(loss_test)
     print(f'test loss:{loss_test:.3f}%')
