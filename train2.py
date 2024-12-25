@@ -23,7 +23,7 @@ ds_train=datasets.FashionMNIST(
 
 ds_test=datasets.FashionMNIST(
     root='data',
-    train='False',
+    train=False,
     download=True, #テスト用データセット
     transform=ds_transform
 )
