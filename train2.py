@@ -7,6 +7,8 @@ from torchvision import datasets
 import torchvision.transforms.v2 as transforms
 
 import models
+
+device='cuda'if torch.cuda.is_available() else 'cpu'
 #データセットの前処理を定義
 #（Transformsでダウンロードするときに変換している 何回か使うので変数にいれる）
 ds_transform=transform=transforms.Compose([
@@ -54,9 +56,9 @@ for image_batch,label_batch in dataloader_test:
 
 model=models.model()
 #精度（正解率を計算）を計算
-acc_train=models.test_accuracy(model,dataloader_train)
+acc_train=models.test_accuracy(model,dataloader_train,device=device)
 print(f'train accuracy:{acc_train*100:.3f}%')
-acc_test=models.test_accuracy(model,dataloader_test)
+acc_test=models.test_accuracy(model,dataloader_test,device=device)
 print(f'test accuracy:{acc_test*100:.4f}%')
 
 #ロス関数（いろいろあるがどの関数も０に一番近くなる（小さくなる）形がベスト）
@@ -76,27 +78,27 @@ for k in range(n_epoch):
     print(f'epoch{k+1}/{n_epoch}',end=': ',flush=True)
 
     time_start=time.time()
-    loss_train=models.train(model,dataloader_train,loss_fn,optimizer)
+    loss_train=models.train(model,dataloader_train,loss_fn,optimizer,device=device)
     time_end=time.time()
     loss_train_history.append(loss_train)
     print(f'train loss:{loss_train:.3f}%・({time_end-time_start:.1f}s)')
     
 
     time_start=time.time()
-    loss_test=models.test(model,dataloader_test,loss_fn)    
+    loss_test=models.test(model,dataloader_test,loss_fn,device=device)   
     time_end=time.time()
     loss_test_history.append(loss_test)
     print(f'test loss:{loss_test:.3f}%・({time_end-time_start:.1f}s)')    
     
     if (k+1)%5==0:
         time_start=time.time()
-        acc_train=models.test_accuracy(model,dataloader_train)
+        acc_train=models.test_accuracy(model,dataloader_train,device=device)
         time_end=time.time()
         acc_train_history.append(acc_train)
         print(f'train accuracy:{acc_train*100:.3f}%・({time_end-time_start:.1f}s')
         
         time_start=time.time()
-        acc_test=models.test_accuracy(model,dataloader_test)
+        acc_test=models.test_accuracy(model,dataloader_test,device=device)
         time_end=time.time()
         acc_test_history.append(acc_test)
         print(f'test accuracy:{acc_test*100:.3f}%・({time_end-time_start:.1f}s')
