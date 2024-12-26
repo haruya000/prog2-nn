@@ -28,7 +28,7 @@ class model(nn.Module):
 def test_accuracy(model,dataloader,device='cpu'):
     n_corrects=0 #正解の個数
 
-    model=model.to(device)
+    model.to(device)
 
     model.eval()
     for image_batch,label_batch in dataloader:
@@ -48,7 +48,7 @@ def test_accuracy(model,dataloader,device='cpu'):
 
 def train(model,dataloader,loss_fn,optimizer,device='cpu'):
     #1epochの学習を行う
-    model=model.to(device)
+    model.to(device)
     model.train() #最適化していくのでnogradを消す
     for image_batch,label_batch in dataloader:
         image_batch=image_batch.to(device)
@@ -68,7 +68,7 @@ def train(model,dataloader,loss_fn,optimizer,device='cpu'):
 
 def test(model,dataloader,loss_fn,device='cpu'):
     loss_total=0.0
-    model=model.to(device)
+    model.to(device)
     model.eval()
 
     for image_batch,label_batch in dataloader:
