@@ -32,8 +32,8 @@ def test_accuracy(model,dataloader,device='cpu'):
 
     model.eval()
     for image_batch,label_batch in dataloader:
-        image_batch.to(device)
-        label_batch.to(device)
+        image_batch=image_batch.to(device)
+        label_batch=label_batch.to(device)
         with torch.no_grad():
             #logitsからどれだけ目的の数からうまくいかなかった度合い（誤差）も調べる
             #もしくはこうなるべきというのがあるのなら目的関数を作る
